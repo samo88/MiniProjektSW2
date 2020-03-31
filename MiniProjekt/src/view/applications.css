@@ -1,0 +1,91 @@
+.game{
+    -fx-background-color: GOLD;
+    -fx-padding: 40px, 40px, 40px, 40px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+#board{
+    -fx-background-color: linear-gradient(#06185e, #3144e6);
+    -fx-background-radius: 8px;
+
+    -fx-border-radius: 6px;
+    -fx-border-color: white;
+    -fx-border-width: 3px;
+
+    -fx-alignment: center;
+    -fx-vgap: 17px;
+    -fx-hgap: 17px;
+    -fx-max-width: 300px;
+    -fx-max-height: 300px;
+    -fx-padding: 20px;
+}
+.info Label{
+    -fx-padding: 50px;
+    -fx-min-height: 70px;
+    -fx-font-size: 30px;
+    -fx-fill: white;
+}
+.start{
+    -fx-alignment: center;
+    -fx-vgap: 5px;
+    -fx-hgap: 10px;
+    -fx-background-color: GOLD;
+}
+.start Label{
+    -fx-font-size: 30px;
+    -fx-text-fill: red;
+    -fx-font-family: "Comic Sans MS";
+}
+.start TextField{
+    -fx-font-size: 30px;
+    -fx-font-family: "Comic Sans MS";
+    -fx-background-color: red;
+    -fx-text-fill: yellow;
+    -fx-border-style: dotted;
+}
+.start Button{
+    -fx-background-color: orange;
+    -fx-text-fill: red;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 20px;
+}
+.start Button:hover{
+    -fx-background-color: red;
+    -fx-text-fill: yellow;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 20px;
+}
+.player{
+    -fx-background-color: red;
+    -fx-alignment: center;
+}
+.one{
+    -fx-background-color: linear-gradient(#0e5e13, #64e627);
+    -fx-min-width: 130px;
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+.one Label{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+.two{
+    -fx-background-color: linear-gradient(#7f0017, #e60024);
+    -fx-min-width: 130px;
+    -fx-border-color: white;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+}
+.two Label{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+#title Label{
+    -fx-text-fill: red;
+    -fx-font-size: 60px;
+    -fx-font-family: "Comic Sans MS";
+    -fx-padding: 30px;
+}
