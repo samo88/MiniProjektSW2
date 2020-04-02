@@ -1,18 +1,13 @@
 package main;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import view.*;
 
-import javax.swing.border.Border;
 import java.util.ArrayList;
 
 public class Controller {
@@ -31,6 +26,7 @@ public class Controller {
     public static int rowSize;          //Variable für die Anzahl der Reihen
     public static int columnSize;      //Variablen für die Anzahl der Spalten
     public static int fieldCounter;   //
+
 
     public EventHandler event;
 
@@ -97,7 +93,6 @@ public class Controller {
         fieldCounter=0;
         info.getInfo().setText("Rot beginnt...");
     }
-    //Methode, um die gewünschte Spielfeldgrösse zu erstellen
     public void fieldController(Field field) {
         this.event = new EventHandler<MouseEvent>() {
             @Override
@@ -138,20 +133,27 @@ public class Controller {
                     }
                     currentMaxOrdinal -= columnSize;
                 }
-                proofRows();
-                proofDiagonal();
-                proofColumns();
+                proofFields();
             }
         };
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
     }
+    public void proofFields() {                                 // Klasse, die die einzelnen Methoden für diagonale PRüfung enthält
+        int greenCounter = 0;       //Zähler für die je Spalte/Reihe gezählten identischen Farben*
+        int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe **
+        int redCounter = 0;         //*
+        int redWin = 0;             //**
 
-    //Control-Methode für die Besetzung der gespielten Felder und Reihenfolge des Spielablaufs
-    public boolean proofRows() {
-        int redCounter = 0;
-        int greenCounter = 0;
-        int greenWin = 0;
-        int redWin = 0;
+        proofDiagOne(greenCounter,greenWin,redCounter,redWin); /// Methoden, um die verschiedenen diagonalen Überprüfungen zu machen *
+        proofDiagTwo(greenCounter,greenWin,redCounter,redWin); ///*
+        proofDiagThree(greenCounter,greenWin,redCounter,redWin);///*
+        proofDiagFour(greenCounter,greenWin,redCounter,redWin);///*
+        proofDiagFive(greenCounter,greenWin,redCounter,redWin);///*
+        proofDiagSix(greenCounter,greenWin,redCounter,redWin);///*
+        proofColumns(greenCounter,greenWin,redCounter,redWin);
+        proofRows(greenCounter,greenWin,redCounter,redWin);
+    }
+    public void proofRows(int greenCounter,int greenWin, int redCounter, int redWin) {
 
         ArrayList<Field> fieldStrokes = new ArrayList<Field>();
         boolean proof = false;
@@ -159,6 +161,7 @@ public class Controller {
             for (int u = (i - (columnSize - 1)); u < i; u++) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + 1);
+
                 if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - 1 && f1.getColor() != Color.GOLD) {
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
@@ -185,29 +188,240 @@ public class Controller {
                             break;
                         }
                     }
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
+                    fieldStrokes.clear();
                 }
             }
             redCounter = 0;
             greenCounter = 0;
+            checkRemainFields();
             fieldStrokes.clear();
         }
-        return proof;
     }
+    public void proofColumns(int greenCounter,int greenWin, int redCounter, int redWin) {
 
-    public void proofColumns() {
-        boolean proof = false;
-        int redCounter = 0;
-        int greenCounter = 0;
-        int redWin = 0;
-        int greenWin = 0;
         ArrayList<Field> fieldStrokes = new ArrayList<Field>();
-
-
         for (int i = 0; i < columnSize; i++) {
             for (int u = i; u < ((rowSize - 1) * columnSize); u += columnSize) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + columnSize);
                 if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - columnSize && f1.getColor() != Color.GOLD) {
+                    if (f1.getColor() == Color.RED) {
+                        redCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (redCounter == 3) {
+                            redWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
+                            playerTwo.getPlayerWinStatus().setText("GEWONNEN");
+                            redCounter = 0;
+                            break;
+                        }
+                    }
+                    if (f1.getColor() == Color.GREEN) {
+                        greenCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (greenCounter == 3) {
+                            greenWin++;
+                            showFourLine(fieldStrokes);
+                            greenCounter = 0;
+                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
+                            playerOne.getPlayerWinStatus().setText("GEWONNEN");
+                            break;
+                        }
+                    }
+                }else{
+                        redCounter=0;
+                        greenCounter=0;
+                        fieldStrokes.clear();
+                        checkRemainFields();
+                    }
+                }
+            redCounter = 0;
+            greenCounter = 0;
+            fieldStrokes.clear();
+            }
+        }
+    private void proofDiagSix(int greenCounter, int greenWin, int redCounter, int redWin) {
+        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
+        for (int i = 4; i < (columnSize-1); i++){
+            for (int o = i; o < i*(columnSize-1); o+=columnSize-1){
+                Field f1 = fieldArray.get(o);
+                Field f2 = fieldArray.get(o + (columnSize-1));
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
+                    if (f1.getColor()==Color.RED) {
+                        redCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (redCounter == 3) {
+                            redWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
+                        }}
+                    if (f1.getColor() == Color.GREEN) {
+                        greenCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (greenCounter == 3) {
+                            greenWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
+                            break;
+                        }
+                    }
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
+                    fieldStrokes.clear();
+                    checkRemainFields();
+                }
+            }
+            redCounter = 0;
+            greenCounter=0;
+            fieldStrokes.clear();
+        }
+
+    }
+    private void proofDiagFive(int greenCounter, int greenWin, int redCounter, int redWin) {
+        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
+
+        for (int i = columnSize-1; i < (rowSize-3)*columnSize; i+= columnSize){
+            for(int e = i ; e< (rowSize*columnSize)-(columnSize-1); e+=(columnSize-1)){
+                Field f1 = fieldArray.get(e);
+                Field f2 = fieldArray.get(e + (columnSize-1));
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
+                    if (f1.getColor()==Color.RED) {
+                        redCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (redCounter == 3) {
+                            redWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
+                            playerTwo.getPlayerWinStatus().setText("GEWONNEN");
+                            break;
+                        }
+                    }
+                    if (f1.getColor() == Color.GREEN) {
+                        greenCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        if (greenCounter == 3) {
+                            greenWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
+                            playerOne.getPlayerWinStatus().setText("GEWONNEN");
+                            break;
+                        }
+                    }
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
+                    fieldStrokes.clear();
+                    checkRemainFields();
+                }
+            }
+            redCounter = 0;
+            greenCounter=0;
+            fieldStrokes.clear();
+
+        }
+    }
+    private void proofDiagFour(int greenCounter, int greenWin, int redCounter, int redWin) {
+        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
+        for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
+            Field f1 = fieldArray.get(i);
+            Field f2 = fieldArray.get(i + (columnSize -1));
+            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
+                if (f1.getColor()==Color.RED) {
+                    redCounter++;
+                    fieldStrokes.add(f1);
+                    fieldStrokes.add(f2);
+                    if (redCounter == 3) {
+                        redWin++;
+                        showFourLine(fieldStrokes);
+                        info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
+                        playerTwo.getPlayerWinStatus().setText("GEWONNEN");
+                        break;
+                    }
+                }
+                if (f1.getColor() == Color.GREEN) {
+                    greenCounter++;
+                    fieldStrokes.add(f1);
+                    fieldStrokes.add(f2);
+                    if (greenCounter == 3) {
+                        greenWin++;
+                        showFourLine(fieldStrokes);
+                        info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
+                        playerOne.getPlayerWinStatus().setText("GEWONNEN");
+                        break;
+                    }
+                }
+
+            }else{
+                redCounter=0;
+                greenCounter=0;
+                fieldStrokes.clear();
+                checkRemainFields();
+            }
+        }
+    }
+    private void proofDiagThree(int greenCounter, int greenWin, int redCounter, int redWin) {
+        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
+
+        for (int q = columnSize - 4; q <= (3 * (columnSize + 1) + columnSize - 4)-(columnSize+1); q += columnSize + 1) {
+            Field f1 = fieldArray.get(q);
+            Field f2 = fieldArray.get(q + columnSize + 1);
+            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
+                if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
+                    System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
+                    if (f1.getColor() == Color.RED) {
+                        redCounter++;
+                        fieldStrokes.add(f1);
+                        fieldStrokes.add(f2);
+                        System.out.println(fieldStrokes);
+                        if (redCounter == 3) {
+                            redWin++;
+                            showFourLine(fieldStrokes);
+                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
+                            playerTwo.getPlayerWinStatus().setText("GEWONNEN");
+                            break;
+                        }
+                    }
+                    if (f1.getColor() == Color.GREEN) {
+                         greenCounter++;
+                         fieldStrokes.add(f1);
+                         fieldStrokes.add(f2);
+                        System.out.println(fieldStrokes);
+                    if (greenCounter == 3) {
+                        greenWin++;
+                        showFourLine(fieldStrokes);
+                        info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
+                        playerOne.getPlayerWinStatus().setText("GEWONNEN");
+                        break;
+                    }
+                }
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
+                    fieldStrokes.clear();
+                    checkRemainFields();
+                }
+            }
+        }
+    }
+    private void proofDiagTwo(int greenCounter, int greenWin, int redCounter, int redWin) {
+        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
+
+        for (int r = 1; r < columnSize - 4; r++) {
+            for (int e = r; e < (rowSize * columnSize) - (columnSize + 1); e += (columnSize + 1)) {
+                Field f1 = fieldArray.get(e);
+                Field f2 = fieldArray.get(e + columnSize + 1);
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -230,216 +444,13 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             break;
-
                         }
                     }
-                }
-            }
-            redCounter = 0;
-            greenCounter = 0;
-            fieldStrokes.clear();
-
-        }
-
-    }
-
-    private void checkRemainFields(){
-        if(fieldCounter == fieldArray.size()){
-            info.getInfo().setText("Spiel unentschieden....");
-        }
-    }
-    public void showFourLine(ArrayList<Field> list){
-        for (Field f: list) {
-            f.setShinyStroke();
-
-        }
-    }
-    public void proofDiagonal() {                                 // Klasse, die die einzelnen Methoden für diagonale PRüfung enthält
-        int greenCounter = 0;       //Zähler für die je Spalte/Reihe gezählten identischen Farben*
-        int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe **
-        int redCounter = 0;         //*
-        int redWin = 0;             //**
-
-        proofDiagOne(greenCounter,greenWin,redCounter,redWin); /// Methoden, um die verschiedenen diagonalen Überprüfungen zu machen *
-        proofDiagTwo(greenCounter,greenWin,redCounter,redWin); ///*
-        proofDiagThree(greenCounter,greenWin,redCounter,redWin);///*
-        proofDiagFour(greenCounter,greenWin,redCounter,redWin);///*
-        proofDiagFive(greenCounter,greenWin,redCounter,redWin);///*
-        proofDiagSix(greenCounter,greenWin,redCounter,redWin);///*
-
-    }
-    private void proofDiagSix(int greenCounter, int greenWin, int redCounter, int redWin) {
-        for (int i = 4; i < (columnSize-1); i++){
-            for (int o = i; o < i*(columnSize-1); o+=columnSize-1){
-                Field f1 = fieldArray.get(o);
-                Field f2 = fieldArray.get(o + (columnSize-1));
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
-                    if (f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
-                        redCounter++;
-                        if (redCounter == 3) {
-                            redWin++;
-                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
-                        }}
-                    if (f1.getColor() == Color.GREEN) {
-                        greenCounter++;
-                        if (greenCounter == 3) {
-                            greenWin++;
-                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
-                            break;
-                        }
-                    }
-                }
-            }
-            redCounter = 0;
-            greenCounter=0;
-        }
-
-    }
-    private void proofDiagFive(int greenCounter, int greenWin, int redCounter, int redWin) {
-        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
-
-        for (int i = columnSize-1; i < (rowSize-3)*columnSize; i+= columnSize){
-            for(int e = i ; e< (rowSize*columnSize)-(columnSize-1); e+=(columnSize-1)){
-                Field f1 = fieldArray.get(e);
-                Field f2 = fieldArray.get(e + (columnSize-1));
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
-                    if (f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
-                        redCounter++;
-                        fieldStrokes.add(f1);
-                        fieldStrokes.add(f2);
-                        if (redCounter == 3) {
-                            redWin++;
-                            showFourLine(fieldStrokes);
-                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
-                            playerTwo.getPlayerWinStatus().setText("GEWONNEN");
-                            break;
-                        }
-                    }
-                    if (f1.getColor() == Color.GREEN) {
-                        greenCounter++;
-                        fieldStrokes.add(f1);
-                        fieldStrokes.add(f2);
-                        if (greenCounter == 3) {
-                            greenWin++;
-                            showFourLine(fieldStrokes);
-                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
-                            playerOne.getPlayerWinStatus().setText("GEWONNEN");
-                            break;
-                        }
-                    }
-                }
-            }
-            redCounter = 0;
-            greenCounter=0;
-            fieldStrokes.clear();
-
-        }
-    }
-    private void proofDiagFour(int greenCounter, int greenWin, int redCounter, int redWin) {
-        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
-
-        for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
-            Field f1 = fieldArray.get(i);
-            Field f2 = fieldArray.get(i + (columnSize -1));
-            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
-                if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
-                    redCounter++;
-                    fieldStrokes.add(f1);
-                    fieldStrokes.add(f2);
-                    if (redCounter == 3) {
-                        redWin++;
-                        showFourLine(fieldStrokes);
-                        info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
-                        playerTwo.getPlayerWinStatus().setText("GEWONNEN");
-                        break;
-                    }
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
                     fieldStrokes.clear();
-                }
-                if (f1.getColor() == Color.GREEN) {
-                    greenCounter++;
-                    fieldStrokes.add(f1);
-                    fieldStrokes.add(f2);
-                    if (greenCounter == 3) {
-                        greenWin++;
-                        showFourLine(fieldStrokes);
-                        info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
-                        playerOne.getPlayerWinStatus().setText("GEWONNEN");
-                        break;
-                    }
-                    fieldStrokes.clear();
-                }
-
-            }
-        }
-    }
-    private void proofDiagThree(int greenCounter, int greenWin, int redCounter, int redWin) {
-        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
-
-        for (int q = columnSize - 4; q <= (3 * (columnSize + 1) + columnSize - 4)-(columnSize+1); q += columnSize + 1) {
-            Field f1 = fieldArray.get(q);
-            Field f2 = fieldArray.get(q + columnSize + 1);
-            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
-                if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
-                    redCounter++;
-                    fieldStrokes.add(f1);
-                    fieldStrokes.add(f2);
-                    if (redCounter == 3) {
-                        redWin++;
-                        showFourLine(fieldStrokes);
-                        info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
-                        playerTwo.getPlayerWinStatus().setText("GEWONNEN");
-                        break;
-
-                    }
-                    fieldStrokes.clear();
-                }
-                if (f1.getColor() == Color.GREEN) {
-                    greenCounter++;
-                    fieldStrokes.add(f1);
-                    fieldStrokes.add(f2);
-                    if (greenCounter == 3) {
-                        greenWin++;
-                        showFourLine(fieldStrokes);
-                        info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
-                        playerOne.getPlayerWinStatus().setText("GEWONNEN");
-                        break;
-                    }
-                    fieldStrokes.clear();
-                }
-            }
-        }
-    }
-    private void proofDiagTwo(int greenCounter, int greenWin, int redCounter, int redWin) {
-        ArrayList<Field> fieldStrokes = new ArrayList<Field>();
-
-        for (int r = 1; r < columnSize - 4; r++) {
-            for (int e = r; e < (rowSize * columnSize) - (columnSize + 1); e += (columnSize + 1)) {
-                Field f1 = fieldArray.get(e);
-                Field f2 = fieldArray.get(e + columnSize + 1);
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
-                    if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
-                        redCounter++;
-                        fieldStrokes.add(f1);
-                        fieldStrokes.add(f2);
-                        if (redCounter == 3) {
-                            redWin++;
-                            showFourLine(fieldStrokes);
-                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
-                            playerTwo.getPlayerWinStatus().setText("GEWONNEN");
-                            break;
-
-                        }}
-                    if (f1.getColor() == Color.GREEN) {
-                        greenCounter++;
-                        fieldStrokes.add(f1);
-                        fieldStrokes.add(f2);
-                        if (greenCounter == 3) {
-                            greenWin++;
-                            showFourLine(fieldStrokes);
-                            info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
-                            playerOne.getPlayerWinStatus().setText("GEWONNEN");
-                            break;
-                        }}
+                    checkRemainFields();
                 }
             }
             redCounter = 0;
@@ -454,8 +465,8 @@ public class Controller {
             for (int u = i; u < (rowSize * columnSize) - columnSize + 1; u += (columnSize + 1)) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + columnSize + 1);
-                if (f1.getColor()== f2.getColor()&& f1.getColor()!=Color.GOLD){
-                    if(f1.getFieldID()== f2.getFieldID()-(columnSize+1)){
+                if (f1.getColor()== f2.getColor()&& f1.getColor()!=Color.GOLD && f1.getFieldID()== f2.getFieldID()-(columnSize+1)){
+                    if(f1.getColor()==Color.RED){
                         redCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -477,12 +488,30 @@ public class Controller {
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             break;
                         }}
+                }else{
+                    redCounter=0;
+                    greenCounter=0;
+                    fieldStrokes.clear();
+                    checkRemainFields();
                 }
             }
             redCounter = 0;
             greenCounter=0;
-            fieldStrokes.clear();
+           fieldStrokes.clear();
         }
     }
+
+    private void checkRemainFields(){
+        if(fieldCounter == fieldArray.size()){
+            info.getInfo().setText("Spiel unentschieden....");
+        }
+    }
+    public void showFourLine(ArrayList<Field> list){
+        for (Field f: list) {
+            f.setShinyStroke();
+
+        }
+    }
+
 
 }
