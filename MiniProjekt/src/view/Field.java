@@ -45,6 +45,7 @@ public class Field extends Label  {
         return "ID: " + this.fieldID +" Farbe:"+ getColor() ;
     }
     public void setShinyStroke(){
-        this.field.setStroke(Color.WHITESMOKE);
+        this.field.setStroke(Color.GHOSTWHITE);
+
     }
 }
