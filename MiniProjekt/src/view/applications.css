@@ -1,5 +1,6 @@
 .game{
-    -fx-background-color: GOLD;
+    -fx-background-image: url("backdrop-blur-board-bokeh-347140.jpg");
+    -fx-background-size: cover;
     -fx-padding: 40px, 40px, 40px, 40px;
     -fx-alignment: center;
     -fx-text-alignment: center;
@@ -7,14 +8,12 @@
 #board{
     -fx-background-color: linear-gradient(#06185e, #3144e6);
     -fx-background-radius: 8px;
-
     -fx-border-radius: 6px;
     -fx-border-color: white;
     -fx-border-width: 3px;
-
     -fx-alignment: center;
-    -fx-vgap: 17px;
-    -fx-hgap: 17px;
+    -fx-vgap: 12px;
+    -fx-hgap: 12px;
     -fx-max-width: 300px;
     -fx-max-height: 300px;
     -fx-padding: 20px;
@@ -29,7 +28,7 @@
     -fx-alignment: center;
     -fx-vgap: 5px;
     -fx-hgap: 10px;
-    -fx-background-color: GOLD;
+    -fx-background-color: linear-gradient(#f2ff00, #e6c121);
 }
 .start Label{
     -fx-font-size: 30px;
@@ -61,6 +60,8 @@
 }
 .one{
     -fx-background-color: linear-gradient(#0e5e13, #64e627);
+    -fx-background-radius: 23px;
+    -fx-border-radius: 20px;
     -fx-min-width: 130px;
     -fx-border-color: white;
     -fx-border-style: solid;
@@ -78,6 +79,8 @@
     -fx-border-color: white;
     -fx-border-style: solid;
     -fx-border-width: 5px;
+    -fx-background-radius: 23px;
+    -fx-border-radius: 20px;
 }
 .two Label{
     -fx-text-fill: white;
@@ -86,6 +89,6 @@
 #title Label{
     -fx-text-fill: red;
     -fx-font-size: 60px;
-    -fx-font-family: "Comic Sans MS";
+    -fx-font-family: "Roboto Light";
     -fx-padding: 30px;
 }

@@ -63,7 +63,7 @@ public class Controller {
             if(namePlayerTwo.equalsIgnoreCase("")){
                 this.playerTwo.getPlayerName().setText("Player2");
             }else{
-                this.playerTwo.getPlayerName().setText(namePlayerOne);
+                this.playerTwo.getPlayerName().setText(namePlayerTwo);
             }
                 int rowSize = Integer.parseInt(start.getRowField().getText());
                 int columnSize = Integer.parseInt(start.getColumnField().getText());
