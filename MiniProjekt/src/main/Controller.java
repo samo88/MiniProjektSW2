@@ -2,9 +2,6 @@ package main;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -97,51 +94,49 @@ public class Controller {
         info.getInfo().setText("Rot beginnt...");
     }
     public void fieldController(Field field) {
-    	field.setOnMouseClicked(event->{
-    		 int currentMaxOrdinal = field.getFieldID();
-             int currentMinOrdinal = field.getFieldID();
+        field.setOnMouseClicked(e -> {
+            int currentMaxOrdinal = field.getFieldID();
+            int currentMinOrdinal = field.getFieldID();
 
-             while (currentMaxOrdinal < (rowSize * columnSize) - columnSize) {
-                 currentMaxOrdinal += columnSize;
-             }
-             while (currentMinOrdinal > 0 && (currentMinOrdinal - columnSize) > 0) {
-                 currentMinOrdinal -= columnSize;
-             }
+            while (currentMaxOrdinal < (rowSize * columnSize) - columnSize) {
+                currentMaxOrdinal += columnSize;
+            }
+            while (currentMinOrdinal > 0 && (currentMinOrdinal - columnSize) > 0) {
+                currentMinOrdinal -= columnSize;
+            }
 
-             while (currentMaxOrdinal >= currentMinOrdinal) {
-                 Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
-                 if (fieldColor == Color.GOLD) {
-                     if (counter % 2 > 0) {
-                         fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
-                         fieldCounter++;
-                         info.getInfo().setText(playerTwo.getPlayerName().getText() + " ist dran...");
-                         playerTwo.setStyle("-fx-border-color: black");
-                         playerOne.setStyle("-fx-border-color: #947a23");
-                         counter++;
-                     } else {
-                         if (counter % 2 == 0) {
-                             fieldArray.get(currentMaxOrdinal).getField().setFill(Color.RED);
-                             fieldCounter++;
-                             playerOne.setStyle("-fx-border-color: black");
-                             playerTwo.setStyle("-fx-border-color: #947a23");
-                             info.getInfo().setText(playerOne.getPlayerName().getText() + " ist dran...");
-                             counter++;
-                         }
-                     }
-                     break;
-                 }
-                 currentMaxOrdinal -= columnSize;
-             }
-             if(proofFields()){
-                 for (Field f: fieldArray){
-                     f.setOnMouseClicked(null);
-                 }
-             }
-    	});
-       
-       
+            while (currentMaxOrdinal >= currentMinOrdinal) {
+                Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
+                if (fieldColor == Color.GOLD) {
+                    if (counter % 2 > 0) {
+                        fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
+                        fieldCounter++;
+                        info.getInfo().setText(playerTwo.getPlayerName().getText() + " ist dran...");
+                        playerTwo.setStyle("-fx-border-color: black");
+                        playerOne.setStyle("-fx-border-color: #b10082;-fx-border-width: 4px");
+                        counter++;
+                    } else {
+                        if (counter % 2 == 0) {
+                            fieldArray.get(currentMaxOrdinal).getField().setFill(Color.RED);
+                            fieldCounter++;
+                            playerOne.setStyle("-fx-border-color: black");
+                            playerTwo.setStyle("-fx-border-color: #b10082;-fx-border-width: 4px");
+                            info.getInfo().setText(playerOne.getPlayerName().getText() + " ist dran...");
+                            counter++;
+                        }
+                    }
+                    break;
+                }
+                currentMaxOrdinal -= columnSize;
+            }
+            if (proofFields()) {
+                for (Field f : fieldArray) {
+                    f.setOnMouseClicked(null);
+                }
+            }
+        });
+
     }
-
     public boolean proofFields() {                                 // Klasse, die die einzelnen Methoden für diagonale PRüfung enthält
         int greenCounter = 0;       //Zähler für die je Spalte/Reihe gezählten identischen Farben*
         int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe **
@@ -168,12 +163,14 @@ public class Controller {
         if(proofDiagSix(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
+        
         if(proofColumns(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
         if(proofRows(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
+        
         return proof;
     }
     public boolean proofRows(int greenCounter,int greenWin, int redCounter, int redWin) {
@@ -373,7 +370,9 @@ public class Controller {
         for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
             Field f1 = fieldArray.get(i);
             Field f2 = fieldArray.get(i + (columnSize -1));
-            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
+            System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
+
+            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
                 if (f1.getColor()==Color.RED) {
                     redCounter++;
                     fieldStrokes.add(f1);
@@ -400,7 +399,6 @@ public class Controller {
                         break;
                     }
                 }
-
             }else{
                 redCounter=0;
                 greenCounter=0;
