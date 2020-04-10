@@ -97,51 +97,49 @@ public class Controller {
         info.getInfo().setText("Rot beginnt...");
     }
     public void fieldController(Field field) {
-        event = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                int currentMaxOrdinal = field.getFieldID();
-                int currentMinOrdinal = field.getFieldID();
+    	
+    	field.setOnMouseClicked(event->{
+    		 int currentMaxOrdinal = field.getFieldID();
+             int currentMinOrdinal = field.getFieldID();
 
-                while (currentMaxOrdinal < (rowSize * columnSize) - columnSize) {
-                    currentMaxOrdinal += columnSize;
-                }
-                while (currentMinOrdinal > 0 && (currentMinOrdinal - columnSize) > 0) {
-                    currentMinOrdinal -= columnSize;
-                }
+             while (currentMaxOrdinal < (rowSize * columnSize) - columnSize) {
+                 currentMaxOrdinal += columnSize;
+             }
+             while (currentMinOrdinal > 0 && (currentMinOrdinal - columnSize) > 0) {
+                 currentMinOrdinal -= columnSize;
+             }
 
-                while (currentMaxOrdinal >= currentMinOrdinal) {
-                    Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
-                    if (fieldColor == Color.GOLD) {
-                        if (counter % 2 > 0) {
-                            fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
-                            fieldCounter++;
-                            info.getInfo().setText(playerTwo.getPlayerName().getText() + " ist dran...");
-                            playerTwo.setStyle("-fx-border-color: black");
-                            playerOne.setStyle("-fx-border-color: #947a23");
-                            counter++;
-                        } else {
-                            if (counter % 2 == 0) {
-                                fieldArray.get(currentMaxOrdinal).getField().setFill(Color.RED);
-                                fieldCounter++;
-                                playerOne.setStyle("-fx-border-color: black");
-                                playerTwo.setStyle("-fx-border-color: #947a23");
-                                info.getInfo().setText(playerOne.getPlayerName().getText() + " ist dran...");
-                                counter++;
-                            }
-                        }
-                        break;
-                    }
-                    currentMaxOrdinal -= columnSize;
-                }
-                if(proofFields()){
-                    for (Field f: fieldArray){
-                        f.setOnMouseClicked(null);
-                    }
-                }
-            }
-        };
-        field.addEventHandler(MouseEvent.MOUSE_CLICKED, event);
+             while (currentMaxOrdinal >= currentMinOrdinal) {
+                 Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
+                 if (fieldColor == Color.GOLD) {
+                     if (counter % 2 > 0) {
+                         fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
+                         fieldCounter++;
+                         info.getInfo().setText(playerTwo.getPlayerName().getText() + " ist dran...");
+                         playerTwo.setStyle("-fx-border-color: black");
+                         playerOne.setStyle("-fx-border-color: #947a23");
+                         counter++;
+                     } else {
+                         if (counter % 2 == 0) {
+                             fieldArray.get(currentMaxOrdinal).getField().setFill(Color.RED);
+                             fieldCounter++;
+                             playerOne.setStyle("-fx-border-color: black");
+                             playerTwo.setStyle("-fx-border-color: #947a23");
+                             info.getInfo().setText(playerOne.getPlayerName().getText() + " ist dran...");
+                             counter++;
+                         }
+                     }
+                     break;
+                 }
+                 currentMaxOrdinal -= columnSize;
+             }
+             if(proofFields()){
+                 for (Field f: fieldArray){
+                     f.setOnMouseClicked(null);
+                 }
+             }
+    	});
+       
        
     }
 
