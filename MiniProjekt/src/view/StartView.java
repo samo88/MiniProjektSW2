@@ -23,8 +23,8 @@ public class StartView extends GridPane {
         this.stage = primaryStage;
         this.playerName = new Label("Nickname: ");
         this.playerName2 = new Label("Nickname2:");
-        this.nameField = new TextField("Samo");
-        this.nameField2 = new TextField("Seda");
+        this.nameField = new TextField("");
+        this.nameField2 = new TextField("");
 
         this.rowLabel = new Label("Zeilen?");
         this.rowField = new TextField("6");
