@@ -97,7 +97,6 @@ public class Controller {
         info.getInfo().setText("Rot beginnt...");
     }
     public void fieldController(Field field) {
-    	
     	field.setOnMouseClicked(event->{
     		 int currentMaxOrdinal = field.getFieldID();
              int currentMinOrdinal = field.getFieldID();
