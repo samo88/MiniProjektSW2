@@ -52,8 +52,19 @@ public class Controller {
         this.start.getConfirmBtn().setOnAction(e -> {
                 this.game.setLeft(playerOne);
                 this.game.setRight(playerTwo);
-                this.playerTwo.getPlayerName().setText(start.getNameField2().getText());
-                this.playerOne.getPlayerName().setText(start.getNameField().getText());
+              String namePlayerOne = start.getNameField().getText();
+              String namePlayerTwo = start.getNameField2().getText();
+
+              if(namePlayerOne.equalsIgnoreCase("")){
+                  this.playerOne.getPlayerName().setText("Player1");
+              }else{
+                  this.playerOne.getPlayerName().setText(namePlayerOne);
+              }
+            if(namePlayerTwo.equalsIgnoreCase("")){
+                this.playerTwo.getPlayerName().setText("Player2");
+            }else{
+                this.playerTwo.getPlayerName().setText(namePlayerOne);
+            }
                 int rowSize = Integer.parseInt(start.getRowField().getText());
                 int columnSize = Integer.parseInt(start.getColumnField().getText());
 
@@ -163,14 +174,14 @@ public class Controller {
         if(proofDiagSix(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
-        
+
         if(proofColumns(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
         if(proofRows(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
-        
+
         return proof;
     }
     public boolean proofRows(int greenCounter,int greenWin, int redCounter, int redWin) {
@@ -285,6 +296,7 @@ public class Controller {
                         fieldStrokes.add(f2);
                         if (redCounter == 3) {
                             redWin++;
+                            showFourLine(fieldStrokes);
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             proof = true;
@@ -300,7 +312,6 @@ public class Controller {
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             proof = true;
-                            break;
                         }
                     }
                 }else{
@@ -313,6 +324,8 @@ public class Controller {
             redCounter = 0;
             greenCounter=0;
             fieldStrokes.clear();
+            checkRemainFields();
+
         }
         return proof;
     }
@@ -370,6 +383,8 @@ public class Controller {
         for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
             Field f1 = fieldArray.get(i);
             Field f2 = fieldArray.get(i + (columnSize -1));
+            System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
+
             if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
                 if (f1.getColor()==Color.RED) {
                     redCounter++;
@@ -414,10 +429,12 @@ public class Controller {
             Field f2 = fieldArray.get(q + columnSize + 1);
             if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
                 if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
+                    System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
+                        System.out.println(fieldStrokes);
                         if (redCounter == 3) {
                             redWin++;
                             showFourLine(fieldStrokes);
@@ -469,7 +486,6 @@ public class Controller {
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                     if (f1.getColor() == Color.GREEN) {
@@ -482,7 +498,6 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                 }else{
@@ -556,5 +571,6 @@ public class Controller {
     }
 
     }
+
 
 
