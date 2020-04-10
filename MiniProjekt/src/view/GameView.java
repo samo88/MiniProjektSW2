@@ -10,19 +10,13 @@ import javafx.stage.Stage;
 public class GameView extends BorderPane {
 
 private BoardPane boardPane;
-private  Label gameTitle;
 
 private Stage stage;
 
     public GameView(Stage stage){
 
-        this.gameTitle = new Label("CONNECT4- THE GAME");
 
-        BorderPane pane = new BorderPane();
-        pane.setCenter(gameTitle);
-        this.setTop(pane);
-        pane.setId("title");
-
+      
         this.stage = stage;
         this.getStyleClass().add("game");
     }

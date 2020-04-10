@@ -22,7 +22,7 @@
     -fx-padding: 50px;
     -fx-min-height: 70px;
     -fx-font-size: 30px;
-    -fx-fill: white;
+    -fx-text-fill: white;
 }
 .start{
     -fx-alignment: center;
