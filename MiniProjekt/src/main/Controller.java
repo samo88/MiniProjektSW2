@@ -74,7 +74,6 @@ public class Controller {
                     alert.setHeaderText("Bitte Angaben prüfen..");
                     alert.setContentText("Wähle  ein 6x7 oder 8x9 grosses Spielfeld aus");
                     alert.show();
-                    System.out.println("Bitte mindestens 4x4 Feld auswählen...");
                 } else {
                     setBoardSize(rowSize, columnSize);
                     game.setBottom(info);
@@ -204,7 +203,6 @@ public class Controller {
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }}
                     if (f1.getColor() == Color.GREEN) {
                         greenCounter++;
@@ -216,7 +214,6 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                 }else{
@@ -252,7 +249,6 @@ public class Controller {
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             redCounter = 0;
                             proof = true;
-                            break;
                         }
                     }
                     if (f1.getColor() == Color.GREEN) {
@@ -266,7 +262,6 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                 }else{
@@ -348,7 +343,6 @@ public class Controller {
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                     if (f1.getColor() == Color.GREEN) {
@@ -361,7 +355,6 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                 }else{
@@ -383,8 +376,6 @@ public class Controller {
         for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
             Field f1 = fieldArray.get(i);
             Field f2 = fieldArray.get(i + (columnSize -1));
-            System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
-
             if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
                 if (f1.getColor()==Color.RED) {
                     redCounter++;
@@ -396,7 +387,6 @@ public class Controller {
                         info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                         playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                         proof = true;
-                        break;
                     }
                 }
                 if (f1.getColor() == Color.GREEN) {
@@ -409,7 +399,6 @@ public class Controller {
                         info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                         playerOne.getPlayerWinStatus().setText("GEWONNEN");
                         proof = true;
-                        break;
                     }
                 }
             }else{
@@ -441,21 +430,18 @@ public class Controller {
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }
                     }
                     if (f1.getColor() == Color.GREEN) {
                          greenCounter++;
                          fieldStrokes.add(f1);
                          fieldStrokes.add(f2);
-                        System.out.println(fieldStrokes);
                     if (greenCounter == 3) {
                         greenWin++;
                         showFourLine(fieldStrokes);
                         info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                         playerOne.getPlayerWinStatus().setText("GEWONNEN");
                         proof = true;
-                        break;
                     }
                 }
                 }else{
@@ -531,7 +517,6 @@ public class Controller {
                             info.getInfo().setText(playerTwo.getPlayerName().getText() + " gewinnt......");
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }}
                     if (f1.getColor() == Color.GREEN) {
                         greenCounter++;
@@ -543,7 +528,6 @@ public class Controller {
                             info.getInfo().setText(playerOne.getPlayerName().getText() + " gewinnt......");
                             playerOne.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
-                            break;
                         }}
                 }else{
                     redCounter=0;
