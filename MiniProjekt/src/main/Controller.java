@@ -370,8 +370,6 @@ public class Controller {
         for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
             Field f1 = fieldArray.get(i);
             Field f2 = fieldArray.get(i + (columnSize -1));
-            System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
-
             if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
                 if (f1.getColor()==Color.RED) {
                     redCounter++;
@@ -416,12 +414,10 @@ public class Controller {
             Field f2 = fieldArray.get(q + columnSize + 1);
             if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
                 if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
-                    System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
-                        System.out.println(fieldStrokes);
                         if (redCounter == 3) {
                             redWin++;
                             showFourLine(fieldStrokes);
