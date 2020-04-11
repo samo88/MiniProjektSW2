@@ -1,7 +1,11 @@
 package main;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -550,10 +554,28 @@ public class Controller {
     private void showFourLine(ArrayList<Field> list){
         for (Field f: list) {
             f.setShinyStroke();
-
         }
+        restartGame();
     }
-
+    private void restartGame() {
+    	HBox hb = new HBox();
+    	Button okBtn = new Button("Restart");
+    	Button quitBtn = new Button("Quit");
+    	hb.getChildren().addAll(okBtn, quitBtn);
+    	hb.setSpacing(5);
+    	hb.setAlignment(Pos.CENTER);
+    	Stage stage = new Stage();
+    	stage.setScene(new Scene(hb, 200, 100));
+    	stage.setTitle("One More Round?");
+    	stage.show();
+    	
+    	okBtn.setOnAction(e->{
+    		primaryStage.close();
+    		board.getChildren().clear();
+    		
+    		
+    	});
+    	}
     }
 
 

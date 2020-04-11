@@ -21,7 +21,7 @@
 .info Label{
     -fx-padding: 50px;
     -fx-min-height: 70px;
-    -fx-font-size: 30px;
+    -fx-font-size: 60px;
     -fx-text-fill: white;
 }
 .start{
