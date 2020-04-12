@@ -1,16 +1,9 @@
 package main;
-
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import view.*;
-
 import java.util.ArrayList;
 
 public class Controller {
@@ -19,19 +12,15 @@ public class Controller {
     private StartView start;
     private GameView game;
     private ArrayList<Field> fieldArray;
-    private ArrayList<Field> fieldArrayTwo;
 
     private InfoPane info;
     private PlayerPane playerOne;
     private PlayerPane playerTwo;
-    private Stage primaryStage;
 
     public static int counter;           //Counter für die genaue Reihenfolge der Spieler
     public static int rowSize;          //Variable für die Anzahl der Reihen
     public static int columnSize;      //Variablen für die Anzahl der Spalten
     public static int fieldCounter;   //
-
-    public static  EventHandler event;
 
     public Controller(StartView start, GameView game, BoardPane board, Stage primaryStage, InfoPane info, PlayerPane playerOne, PlayerPane playerTwo) {
 
@@ -45,13 +34,10 @@ public class Controller {
         this.playerOne.getStyleClass().add("one");
         this.playerTwo.getStyleClass().add("two");
 
-        this.counter = 0;
-        this.fieldCounter = 0;
+        counter = 0;
+        fieldCounter = 0;
 
         this.fieldArray = new ArrayList<Field>();
-        this.fieldArrayTwo = new ArrayList<Field>();
-
-        this.primaryStage = primaryStage;
 
         this.start.getConfirmBtn().setOnAction(e -> {
                 this.game.setLeft(playerOne);
@@ -92,8 +78,8 @@ public class Controller {
             });
     }
     public void setBoardSize(int row, int column) {
-        this.rowSize = row;
-        this.columnSize = column;
+        rowSize = row;
+        columnSize = column;
 
         for (int i = 0; i < row; i++) {
             for (int z = 0; z < column; z++) {
@@ -151,11 +137,11 @@ public class Controller {
         });
 
     }
-    public boolean proofFields() {                                 // Klasse, die die einzelnen Methoden für diagonale PRüfung enthält
+    public boolean proofFields() {   
         int greenCounter = 0;       //Zähler für die je Spalte/Reihe gezählten identischen Farben*
-        int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe **
-        int redCounter = 0;         //*
-        int redWin = 0;             //**
+        int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe
+        int redCounter = 0;         
+        int redWin = 0;             
 
         boolean proof = false;
 
@@ -555,28 +541,8 @@ public class Controller {
         for (Field f: list) {
             f.setShinyStroke();
         }
-        restartGame();
     }
-    private void restartGame() {
-    	HBox hb = new HBox();
-    	Button okBtn = new Button("Restart");
-    	Button quitBtn = new Button("Quit");
-    	hb.getChildren().addAll(okBtn, quitBtn);
-    	hb.setSpacing(5);
-    	hb.setAlignment(Pos.CENTER);
-    	Stage stage = new Stage();
-    	stage.setScene(new Scene(hb, 200, 100));
-    	stage.setTitle("One More Round?");
-    	stage.show();
-    	
-    	okBtn.setOnAction(e->{
-    		primaryStage.close();
-    		board.getChildren().clear();
-    		
-    		
-    	});
-    	}
-    }
+  }
 
 
 

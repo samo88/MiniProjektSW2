@@ -11,7 +11,7 @@ public class PlayerPane extends VBox {
     public PlayerPane(){
 
         this.playerName = new Label("playerName");
-        this.playerWinStatus = new Label("---");
+        this.playerWinStatus = new Label("");
 
         this.getChildren().addAll(playerName, playerWinStatus);
         this.getStyleClass().add("player");
