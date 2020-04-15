@@ -1,6 +1,7 @@
 package main;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -51,14 +52,17 @@ public class Controller {
               }else{
                   this.playerOne.getPlayerName().setText(namePlayerOne);
               }
-            if(namePlayerTwo.equalsIgnoreCase("")){
+              
+              if(namePlayerTwo.equalsIgnoreCase("")){
                 this.playerTwo.getPlayerName().setText("Player2");
-            }else{
+              }else{
                 this.playerTwo.getPlayerName().setText(namePlayerTwo);
-            }
-                int rowSize = Integer.parseInt(start.getRowField().getText());
+              }
+            
+            try {
+            	int rowSize = Integer.parseInt(start.getRowField().getText());
                 int columnSize = Integer.parseInt(start.getColumnField().getText());
-
+                
                 if (rowSize < 4 || columnSize < 4 || rowSize >= columnSize || rowSize > 9 || columnSize > 9) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Ungültige Spielfeldgrösse");
@@ -74,9 +78,16 @@ public class Controller {
 
                     if (counter % 2 == 0) {
                         playerTwo.setStyle("-fx-border-color: #947a23");
-
                     }
                 }
+            }catch(NumberFormatException exc) {
+            	exc.printStackTrace();
+            	Alert alert = new Alert(AlertType.ERROR);
+            	alert.setHeaderText("NUR GANZE ZAHLEN");
+            	alert.setContentText("Bitte nur ganze Zahlen eingeben....");
+            	alert.show();
+            }
+               
             });
     }
     public void setBoardSize(int row, int column) {
