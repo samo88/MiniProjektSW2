@@ -151,7 +151,6 @@ public class Controller {
                 }
             }
         });
-
     }
     public boolean proofFields() {   
         int greenCounter = 0;       //Zähler für die dje Spalte/Reihe gezählten identischen Farben*
@@ -186,7 +185,6 @@ public class Controller {
         if(proofRows(greenCounter,greenWin,redCounter,redWin)){
             proof = true;
         }
-
         return proof;
     }
     public boolean proofRows(int greenCounter,int greenWin, int redCounter, int redWin) {
