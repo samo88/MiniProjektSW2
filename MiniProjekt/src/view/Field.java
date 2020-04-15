@@ -8,9 +8,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.StrokeType;
-import main.Controller;
 
 import java.util.Collection;
+
+import controller.Controller;
 
 public class Field extends Label  {
 
