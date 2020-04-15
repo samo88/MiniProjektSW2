@@ -7,7 +7,12 @@
     -fx-vgap: 10px;
 
 }
+#header{
+	-fx-text-fill: yellow;
+	-fx-font-size: 30px;
+}
 #board{
+	
     -fx-background-color: linear-gradient(#06185e, #3144e6);
     -fx-background-radius: 8px;
     -fx-border-radius: 6px;
@@ -38,11 +43,12 @@
     -fx-alignment: center;
     -fx-vgap: 5px;
     -fx-hgap: 10px;
-    -fx-background-color: linear-gradient(#f2ff00, #e6c121);
+    -fx-background-image: url("backdrop-blur-board-bokeh-347140.jpg");
+    -fx-background-size: cover;
 }
 .start Label{
     -fx-font-size: 30px;
-    -fx-text-fill: red;
+    -fx-text-fill: yellow;
     -fx-font-family: "Comic Sans MS";
 }
 .start TextField{

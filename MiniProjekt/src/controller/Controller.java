@@ -123,9 +123,9 @@ public class Controller {
 
             while (currentMaxOrdinal >= currentMinOrdinal) {
                 Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
-                if (fieldColor == Color.TRANSPARENT) {
+                if (fieldColor == Color.GREEN) {
                     if (counter % 2 > 0) {
-                        fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
+                        fieldArray.get(currentMaxOrdinal).getField().setFill(Color.YELLOW);
                         fieldCounter++;
                         info.getInfo().setText(playerTwo.getPlayerName().getText() + " ist dran...");
                         playerTwo.setStyle("-fx-border-color: black");
@@ -196,7 +196,7 @@ public class Controller {
             for (int u = (i - (columnSize - 1)); u < i; u++) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + 1);
-                if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - 1 && f1.getColor() != Color.GOLD) {
+                if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - 1 && f1.getColor() != Color.GREEN) {
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -208,7 +208,7 @@ public class Controller {
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
                         }}
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -241,7 +241,7 @@ public class Controller {
             for (int u = i; u < ((rowSize - 1) * columnSize); u += columnSize) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + columnSize);
-                if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - columnSize && f1.getColor() != Color.GOLD) {
+                if (f1.getColor() == f2.getColor() && f1.getFieldID() == f2.getFieldID() - columnSize && f1.getColor() != Color.GREEN) {
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -255,7 +255,7 @@ public class Controller {
                             proof = true;
                         }
                     }
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -288,7 +288,7 @@ public class Controller {
             for (int o = i; o < i*(columnSize-1); o+=columnSize-1){
                 Field f1 = fieldArray.get(o);
                 Field f2 = fieldArray.get(o + (columnSize-1));
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GREEN&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
                     if (f1.getColor()==Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -301,7 +301,7 @@ public class Controller {
                             proof = true;
 
                         }}
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -336,7 +336,7 @@ public class Controller {
             for(int e = i ; e< (rowSize*columnSize)-(columnSize-1); e+=(columnSize-1)){
                 Field f1 = fieldArray.get(e);
                 Field f2 = fieldArray.get(e + (columnSize-1));
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GREEN&&f1.getFieldID() == f2.getFieldID() - (columnSize -1)) {
                     if (f1.getColor()==Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -349,7 +349,7 @@ public class Controller {
                             proof = true;
                         }
                     }
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -380,7 +380,7 @@ public class Controller {
         for (int i = 3; i < (2*columnSize)+3; i+=(columnSize-1)){
             Field f1 = fieldArray.get(i);
             Field f2 = fieldArray.get(i + (columnSize -1));
-            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
+            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GREEN && f1.getFieldID() == f2.getFieldID() - (rowSize)) {
                 if (f1.getColor()==Color.RED) {
                     redCounter++;
                     fieldStrokes.add(f1);
@@ -393,7 +393,7 @@ public class Controller {
                         proof = true;
                     }
                 }
-                if (f1.getColor() == Color.GREEN) {
+                if (f1.getColor() == Color.YELLOW) {
                     greenCounter++;
                     fieldStrokes.add(f1);
                     fieldStrokes.add(f2);
@@ -420,7 +420,7 @@ public class Controller {
         for (int q = columnSize - 4; q <= (3 * (columnSize + 1) + columnSize - 4)-(columnSize+1); q += columnSize + 1) {
             Field f1 = fieldArray.get(q);
             Field f2 = fieldArray.get(q + columnSize + 1);
-            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD) {
+            if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GREEN) {
                 if (f1.getFieldID() == f2.getFieldID() - (columnSize + 1)&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
                     System.out.println(f1.getFieldID()+"--"+f2.getFieldID());
                     if (f1.getColor() == Color.RED) {
@@ -436,7 +436,7 @@ public class Controller {
                             proof = true;
                         }
                     }
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                          greenCounter++;
                          fieldStrokes.add(f1);
                          fieldStrokes.add(f2);
@@ -465,7 +465,7 @@ public class Controller {
             for (int e = r; e < (rowSize * columnSize) - (columnSize + 1); e += (columnSize + 1)) {
                 Field f1 = fieldArray.get(e);
                 Field f2 = fieldArray.get(e + columnSize + 1);
-                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GOLD&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
+                if (f1.getColor() == f2.getColor() && f1.getColor() != Color.GREEN&&f1.getFieldID() == f2.getFieldID() - (columnSize + 1)) {
                     if (f1.getColor() == Color.RED) {
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -478,7 +478,7 @@ public class Controller {
                             proof = true;
                         }
                     }
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);
@@ -510,7 +510,7 @@ public class Controller {
             for (int u = i; u < (rowSize * columnSize) - columnSize + 1; u += (columnSize + 1)) {
                 Field f1 = fieldArray.get(u);
                 Field f2 = fieldArray.get(u + columnSize + 1);
-                if (f1.getColor()== f2.getColor()&& f1.getColor()!=Color.GOLD && f1.getFieldID()== f2.getFieldID()-(columnSize+1)){
+                if (f1.getColor()== f2.getColor()&& f1.getColor()!=Color.GREEN && f1.getFieldID()== f2.getFieldID()-(columnSize+1)){
                     if(f1.getColor()==Color.RED){
                         redCounter++;
                         fieldStrokes.add(f1);
@@ -522,7 +522,7 @@ public class Controller {
                             playerTwo.getPlayerWinStatus().setText("GEWONNEN");
                             proof = true;
                         }}
-                    if (f1.getColor() == Color.GREEN) {
+                    if (f1.getColor() == Color.YELLOW) {
                         greenCounter++;
                         fieldStrokes.add(f1);
                         fieldStrokes.add(f2);

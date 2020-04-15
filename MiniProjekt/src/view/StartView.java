@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class StartView extends GridPane {
 
-    private Label playerName,playerName2, rowLabel, columnLabel;
+    private Label playerName,playerName2, rowLabel, columnLabel,title;
     private TextField nameField,nameField2, rowField, columnField;
 
     private Button confirmBtn;
@@ -21,6 +21,8 @@ public class StartView extends GridPane {
     public StartView(Stage primaryStage){
 
         this.stage = primaryStage;
+        this.title = new Label("Namen/Spielfeldgrösse");
+        this.title.setId("header");
         this.playerName = new Label("Nickname: ");
         this.playerName2 = new Label("Nickname2:");
         this.nameField = new TextField("");
@@ -33,15 +35,16 @@ public class StartView extends GridPane {
 
         this.confirmBtn = new Button("OK");
 
-        this.add(playerName,4,1);
-        this.add(nameField,5,1);
-        this.add(playerName2,4,2);
-        this.add(nameField2,5,2);
-        this.add(rowLabel,4,3);
-        this.add(rowField,5, 3);
-        this.add(columnLabel, 4,4);
-        this.add(columnField, 5,4);
-        this.add(confirmBtn, 5,5);
+        this.add(title,5,1);
+        this.add(playerName,4,2);
+        this.add(nameField,5,2);
+        this.add(playerName2,4,3);
+        this.add(nameField2,5,3);
+        this.add(rowLabel,4,4);
+        this.add(rowField,5, 4);
+        this.add(columnLabel, 4,5);
+        this.add(columnField, 5,5);
+        this.add(confirmBtn, 5,6);
 
         this.getStyleClass().add("start");
     }
