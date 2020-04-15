@@ -46,6 +46,7 @@ public class Controller {
                 this.game.setRight(playerTwo);
               String namePlayerOne = start.getNameField().getText();
               String namePlayerTwo = start.getNameField2().getText();
+              
 
               if(namePlayerOne.equalsIgnoreCase("")){
                   this.playerOne.getPlayerName().setText("Player1");
