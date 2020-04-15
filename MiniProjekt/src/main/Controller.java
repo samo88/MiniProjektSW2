@@ -62,12 +62,15 @@ public class Controller {
             try {
             	int rowSize = Integer.parseInt(start.getRowField().getText());
                 int columnSize = Integer.parseInt(start.getColumnField().getText());
+                System.out.println(rowSize+"--"+ columnSize);
                 
-                if (rowSize < 4 || columnSize < 4 || rowSize >= columnSize || rowSize > 9 || columnSize > 9) {
+                if (rowSize < 6 || columnSize < 7 || rowSize >= columnSize || rowSize > 8 || columnSize > 9|| columnSize == rowSize+2||columnSize == rowSize+3) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Ungültige Spielfeldgrösse");
                     alert.setHeaderText("Bitte Angaben prüfen..");
-                    alert.setContentText("Wähle  zwischen ein 6 bis 8 mal 7 bis 9 grosses Spielfeld aus");
+                    alert.setContentText("Wähle  zwischen ein 6 bis 8, mal 7 bis 9 grosses Spielfeld aus."
+                    		+ " Die Spaltenzahl darf maximal eine Einheit höher als die Reihenzahl sein");
+                    
                     alert.show();
                 } else {
                     setBoardSize(rowSize, columnSize);
