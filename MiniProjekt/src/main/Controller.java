@@ -65,11 +65,11 @@ public class Controller {
                 System.out.println(rowSize+"--"+ columnSize);
                 
                 if (rowSize < 6 || columnSize < 7 || rowSize >= columnSize || rowSize > 8 || columnSize > 9|| columnSize == rowSize+2||columnSize == rowSize+3) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Ungültige Spielfeldgrösse");
                     alert.setHeaderText("Bitte Angaben prüfen..");
                     alert.setContentText("Wähle  zwischen ein 6 bis 8, mal 7 bis 9 grosses Spielfeld aus."
-                    		+ " Die Spaltenzahl darf maximal eine Einheit höher als die Reihenzahl sein");
+                    		+ " Die Spaltenzahl darf maximal bzw. muss minimal eine Einheit höher als die Reihenzahl sein.");
                     
                     alert.show();
                 } else {
@@ -154,7 +154,7 @@ public class Controller {
 
     }
     public boolean proofFields() {   
-        int greenCounter = 0;       //Zähler für die je Spalte/Reihe gezählten identischen Farben*
+        int greenCounter = 0;       //Zähler für die dje Spalte/Reihe gezählten identischen Farben*
         int greenWin = 0;           //Zähler für belegte 4 Felder in einer Reihe
         int redCounter = 0;         
         int redWin = 0;             
