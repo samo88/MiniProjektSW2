@@ -1,4 +1,5 @@
 package main;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -62,11 +63,12 @@ public class Controller {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Ungültige Spielfeldgrösse");
                     alert.setHeaderText("Bitte Angaben prüfen..");
-                    alert.setContentText("Wähle  ein 6x7 oder 8x9 grosses Spielfeld aus");
+                    alert.setContentText("Wähle  zwischen ein 6 bis 8 mal 7 bis 9 grosses Spielfeld aus");
                     alert.show();
                 } else {
                     setBoardSize(rowSize, columnSize);
                     game.setBottom(info);
+                    game.setAlignment(info, Pos.CENTER);
                     game.setCenter(board);
                     game.startGame();
 
@@ -107,7 +109,7 @@ public class Controller {
 
             while (currentMaxOrdinal >= currentMinOrdinal) {
                 Paint fieldColor = fieldArray.get(currentMaxOrdinal).getField().getFill();
-                if (fieldColor == Color.GOLD) {
+                if (fieldColor == Color.TRANSPARENT) {
                     if (counter % 2 > 0) {
                         fieldArray.get(currentMaxOrdinal).getField().setFill(Color.GREEN);
                         fieldCounter++;

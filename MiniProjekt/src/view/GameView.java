@@ -23,7 +23,7 @@ private Stage stage;
 
     public void startGame(){
 
-        Scene scene = new Scene(this, 1000, 700);
+        Scene scene = new Scene(this, 1000, 800);
         stage.setScene(scene);
         stage.setTitle("CONNECT4 - THE GAME");
         scene.getStylesheets().add(getClass().getResource("applications.css").toExternalForm());

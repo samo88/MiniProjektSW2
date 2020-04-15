@@ -26,7 +26,7 @@ public class Field extends Label  {
         this.field.setRadiusY(20);
         this.field.setStroke(Color.CADETBLUE);
         this.field.setStrokeWidth(3);
-        this.field.setFill(Color.GOLD);
+        this.field.setFill(Color.TRANSPARENT);
 
         field.getStyleClass().add("coin");
         this.setGraphic(field);
