@@ -7,6 +7,8 @@ Der Quellcode beinhaltet die benötigten Librarys der JavaUmgebung und muss nich
 
 WICHTIG : Die Zeilenebene muss aus Algorithmischen und funktionalen Gegebenheiten in der Programmierung, immer tiefer als die Spaltenebene sein.
 
+Die Spaltenzahl darf maximal bzw. muss minimal eine Einheit höher als die Reihenzahl sein!
+
 
         5X6                                     6X5
 ____________________                  _______________________
@@ -27,6 +29,11 @@ Der erste Spieler, der diese Bedingung erfüllt, gewinnt das Spiel.
 
 
 TECHNISCHE DETAILS
+
+Bei diesem Projekt wurde  auf ein klassischen MVC-Pattern verzichtet. Bei der Programmierung wurde auf eine Model-Instanz verzichtet, weil sie in diesem Kontext als nicht notwendig gefunden wurde.
+Alle Inputs werden direkt mit der Controller-Instanz geregelt und auf die View übertragen.
+
+Ich fand diese Lösung für ausgereifter und codesparender.
 
 Der Code für die Bewertung der gespielten Felder basiert auf folgende Muster:
 Die Bewertung der Spielfelder erfolgt auf horizontaler, vertikaler und mehreren diagonalen Prüfmethoden.
